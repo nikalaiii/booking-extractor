@@ -1,0 +1,22 @@
+{
+  "manifest_version": 3,
+  "name": "My Minimal Extension",
+  "version": "1.0",
+  "description": "A minimal working Chrome extension.",
+  "permissions": [
+    "scripting",
+    "tabs"
+  ],
+
+  "host_permissions": [
+    "<all_urls>"
+  ],
+
+  "background": {
+    "service_worker": "background.js"
+  },
+
+  "action": {
+    "default_popup": "popup.html"
+  }
+}
