@@ -7,11 +7,29 @@
     <h3>Booking Extractor</h3>
     <p>enter key words for searching</p>
     <form>
+       <button type="button" id="clearButton">Clear All</button>
       <button type="submit">+</button>
       <input type="text" id="searchInput" placeholder="Enter keywords" />
     </form>
-    <ul class="list"></ul>
+    <ul class="list">
+     
+    </ul>
     <button id="findButton">Find</button>
+
+    <div id="results">
+      <h3>Saved Results</h3>
+      <button id="clearResultsButton">Clear Results</button>
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th id="titlehead">Title</th>
+            <th>Price</th>
+          </tr>
+        </thead>
+        <tbody id="resultsBody"></tbody>
+      </table>
+    </div>
 
     <script src="popup.js"></script>
   </body>

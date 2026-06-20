@@ -1,5 +1,7 @@
 body {
     background-color: #000;
+    max-width: 500px;
+    overflow: scroll;
 }
 
 p, h1, h2, h3  {
@@ -24,4 +26,36 @@ form {
 li {
     cursor: not-allowed;
     color: #ccc;    
+}
+
+/* Table styling: white background for table and cells, dark text for readability */
+#results table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #fff;
+    color: #000;
+    overflow: scroll; /* Enable horizontal scrolling for small screens */
+}
+
+#results thead th {
+    background-color: #f7f7f7;
+    color: #000;
+    text-align: left;
+    padding: 6px 8px;
+    border: 1px solid #000;
+}
+
+#titlehead {
+    min-width: 100px; /* Set a minimum width for the title column */
+}
+
+.price-column {
+    min-width: 30px; /* Set a minimum width for price columns */
+}
+
+#results tbody td {
+    background-color: #fff;
+    color: #000;
+    padding: 6px 8px;
+    border: 1px solid #000;
 }

@@ -5,7 +5,9 @@
   "description": "extractor for booking.com",
   "permissions": [
     "scripting",
-    "tabs"
+    "tabs",
+    "storage",
+    "activeTab"
   ],
 
   "host_permissions": [
