@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
-  "name": "My Minimal Extension",
+  "name": "Booking Extractor",
   "version": "1.0",
-  "description": "A minimal working Chrome extension.",
+  "description": "extractor for booking.com",
   "permissions": [
     "scripting",
     "tabs"
@@ -13,7 +13,8 @@
   ],
 
   "background": {
-    "service_worker": "background.js"
+    "service_worker": "background.js",
+    "type": "module"
   },
 
   "action": {

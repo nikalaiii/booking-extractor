@@ -32,6 +32,10 @@ list.addEventListener("click", (event) => {
 
 // When starting the search, re-query the list to get current items
 findButton.addEventListener("click", () => {
+  if (getKeywords().length === 0) {
+    alert("Please add at least one keyword before searching.");
+    return;
+  }
     chrome.runtime.sendMessage(
     { action: "getResult", payload: getKeywords() },
     (response) => {

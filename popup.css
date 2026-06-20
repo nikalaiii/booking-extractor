@@ -1,0 +1,27 @@
+body {
+    background-color: #000;
+}
+
+p, h1, h2, h3  {
+    color: #fff;
+}
+
+input {
+    color: #fff;
+    background-color: grey;
+    ;
+} ::placeholder {
+    color: #fff;
+}
+
+form {
+    display: flex; 
+    flex-direction: row-reverse;
+    flex-wrap: nowrap;
+    gap: 10px;  
+}
+
+li {
+    cursor: not-allowed;
+    color: #ccc;    
+}
