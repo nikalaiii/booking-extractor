@@ -28,7 +28,7 @@ function getStorageInfo(name) {
   });
 }
 /*
-Results storage format:
+результат у форматі:
   results: [ { id, title, prices: { [timeScope]: price } } ]
   resultColumns: [ timeScope1, timeScope2, ... ]
 */
@@ -37,7 +37,6 @@ function normalizeStored(existing) {
   if (!Array.isArray(existing)) return [];
   return existing.map((it, idx) => {
     if (it && it.prices && typeof it.prices === "object") return it;
-    // legacy shape: {id, title, price}
     return {
       id: it.id != null ? it.id : idx,
       title: it.title || "",
@@ -46,11 +45,11 @@ function normalizeStored(existing) {
   });
 }
 
+// рендер всіх нових результатів у таблицю фронта
 function renderResults(results, columns) {
   const resultsBody = document.getElementById("resultsBody");
   const thead = document.querySelector("#results thead");
   resultsBody.innerHTML = "";
-  // build header
   const headRow = thead.querySelector("tr");
   headRow.innerHTML = "";
   const idTh = document.createElement("th");
@@ -87,6 +86,7 @@ function renderResults(results, columns) {
   });
 }
 
+// сохранение нових результатов у хранилище
 async function saveResultsWithTimeScope(newResults, timeScope) {
   if (!Array.isArray(newResults) || newResults.length === 0) return;
   const existingRaw = await getStorageInfo("results");
@@ -116,6 +116,7 @@ async function saveResultsWithTimeScope(newResults, timeScope) {
   });
 }
 
+// криейтор документа ворд.
 function createWordDocument(results, columns) {
   const tableRows = [];
 
@@ -206,7 +207,7 @@ function createWordDocument(results, columns) {
   });
 }
 
-// Handle form submit to add a keyword
+// хандлер добавления нового названия
 form.addEventListener("submit", (event) => {
   event.preventDefault();
   if (getPageKeywords().length >= 15) {
@@ -227,19 +228,20 @@ form.addEventListener("submit", (event) => {
   }
 });
 
-// Use event delegation so clicks on current and future <li> remove them
+// хандлер удаления названия по клику
 list.addEventListener("click", (event) => {
   const li = event.target.closest("li");
   if (!li) return;
   list.removeChild(li);
 });
 
+// хандлер очистки всех названий
 clearButton.addEventListener("click", () => {
   chrome.storage.local.set({ keywords: [] });
   list.innerHTML = "";
 });
 
-// Load keywords from storage on popup open
+// хандлер стартовой загрузки и инициализации
 document.addEventListener("DOMContentLoaded", async () => {
   const keywords = await getStorageInfo("keywords");
   const results = await getStorageInfo("results");
@@ -253,7 +255,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   });
 });
 
-// When starting the search, re-query the list to get current items
+// основной хандлер поиска резултатов. создание запроса к бекграунду и обработка ответа.
 findButton.addEventListener("click", () => {
   if (getPageKeywords().length === 0) {
     alert("Please add at least one keyword before searching.");
@@ -285,6 +287,7 @@ findButton.addEventListener("click", () => {
   );
 });
 
+// очистка всей таблицы результатов и хранилища
 clearResultsButton.addEventListener("click", () => {
   const resultsBody = document.getElementById("resultsBody");
   const thead = document.querySelector("#results thead");
@@ -295,6 +298,7 @@ clearResultsButton.addEventListener("click", () => {
   chrome.storage.local.set({ results: [], resultColumns: [] });
 });
 
+// активация криейтера и загрузка файла
 downloadButton.addEventListener("click", async () => {
   const resultsRaw = await getStorageInfo("results");
   const columns = await getStorageInfo("resultColumns");
