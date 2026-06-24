@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Booking Extractor",
-  "version": "1.0",
+  "version": "2.0",
   "description": "extractor for booking.com",
   "permissions": [
     "scripting",

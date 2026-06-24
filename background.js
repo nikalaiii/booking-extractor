@@ -25,12 +25,13 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
               onlyNumbers: (text) => (text || "").replace(/\D/g, "").trim(),
 
               // чистим запрос от фронта. в ідеалі це робить фронт. але кому ж тут не похуй хто це має делать
-              cleanKeywords: (keywords) => {
-                const kws = (keywords || [])
+              cleanKeywords: (keywords) =>
+                (keywords || [])
                   .filter(Boolean)
-                  .map((k) => String(k).toLowerCase().trim());
-                return kws;
-              },
+                  .map((keyword) => ({
+                    original: String(keyword).trim(),
+                    normalized: String(keyword).toLowerCase().trim(),
+                  })),
 
               // у букінга якогось хуя копируєються додаткові фрази кроме обичних названий тайтлов
               // і тому їм так само як євреям прийшлось робить блятьське обрізаніє
@@ -65,14 +66,28 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
               // оставляєм тільки ті теги які запрошує фронт, робим простенький фільтр на інклюд
               filterExtracted: (results, keywords) => {
                 const kws = extractor.cleanKeywords(keywords);
-                const filtered = kws.length
-                  ? results.filter(
-                      (r) =>
-                        r.title &&
-                        kws.some((kw) => r.title.toLowerCase().includes(kw)),
-                    )
-                  : [];
-                return filtered;
+                if (!kws.length) return [];
+
+                return kws
+                  .map((keyword) => {
+                    const matched = results.find(
+                      (result) =>
+                        result.title &&
+                        result.title
+                          .toLowerCase()
+                          .includes(keyword.normalized),
+                    );
+
+                    if (!matched) return null;
+
+                    return {
+                      ...matched,
+                      keyword: keyword.original,
+                      matchedTitle: matched.title,
+                      title: keyword.original,
+                    };
+                  })
+                  .filter(Boolean);
               },
             };
 

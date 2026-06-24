@@ -1,7 +1,8 @@
 body {
     background-color: #000;
-    max-width: 500px;
-    overflow: scroll;
+    width: 760px;
+    max-width: 760px;
+    overflow: hidden auto;
 }
 
 p, h1, h2, h3  {
@@ -11,7 +12,6 @@ p, h1, h2, h3  {
 input {
     color: #fff;
     background-color: grey;
-    ;
 } ::placeholder {
     color: #fff;
 }
@@ -24,17 +24,30 @@ form {
 }
 
 li {
-    cursor: not-allowed;
-    color: #ccc;    
+    color: #ccc;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 6px;
 }
 
-/* Table styling: white background for table and cells, dark text for readability */
+.keyword-input {
+    flex: 1;
+    min-width: 0;
+}
+
+#results {
+    max-width: 100%;
+    overflow-x: auto;
+    padding-bottom: 8px;
+}
+
 #results table {
-    width: 100%;
+    width: max-content;
+    min-width: 100%;
     border-collapse: collapse;
     background-color: #fff;
     color: #000;
-    overflow: scroll; /* Enable horizontal scrolling for small screens */
 }
 
 #results thead th {
@@ -46,11 +59,12 @@ li {
 }
 
 #titlehead {
-    min-width: 100px; /* Set a minimum width for the title column */
+    min-width: 100px;
 }
 
 .price-column {
-    min-width: 30px; /* Set a minimum width for price columns */
+    min-width: 70px;
+    text-align: center;
 }
 
 #results tbody td {
@@ -58,4 +72,17 @@ li {
     color: #000;
     padding: 6px 8px;
     border: 1px solid #000;
+}
+
+#questionDialog {
+    position: absolute;
+    background-color: grey;
+    border: 2px solid red;
+    right: 0;
+    left: 0;
+    top: 0;
+}
+
+.hiden {
+    display: none;
 }
